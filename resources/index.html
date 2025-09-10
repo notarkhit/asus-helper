@@ -2,24 +2,59 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>NeutralinoJs sample app</title>
+    <title> Asus Helper </title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <div id="neutralinoapp">
-      <h1>NeutralinoJs</h1>
-      <div id="info"></div>
-      <br/>
-      <img src="/icons/logo.gif" alt="Neutralinojs" />
-      <div>
-        <a href="#" onclick="openDocs();">Docs</a> &middot;  
-        <a href="#" onclick="openTutorial();">Video tutorial</a>
-      </div>
-    </div>
-    <!-- Neutralino.js client. This file is gitignored, 
-        because `neu update` typically downloads it.
-        Avoid copy-pasting it. 
-        -->
+
+	<header id="titlebar">
+		<h2>ASUS HELPER</h2>
+	</header>
+
+	<main>
+		<!-- System controls  -->
+		<section id="system-control">
+			<h3>System controls</h3>
+			<label for="perf">Performance Profile</label>
+			<select name="perf" id="perf">
+				<option value="quiet">Quiet</option>
+				<option value="balanced">balanced</option>
+				<option value="Performance">Performance</option>
+			</select>
+			<label for="bat-cap">Battery Charge limit</label>
+			<input type="range" name="bat-cap" id="bat-cap"><output id="bat-cap">50</output>
+		</section>
+	
+		<section id="aura">
+		<h3>Aura Controls</h3>
+
+		<label for="aura-mode">Aura mode</label>
+		<select name="aura-mode" id="aura-mode">
+			<option value="static">Static</option>
+			<option value="breathe">Breathe</option>
+			<option value="rainbow-cycle">Rainbow Cycle</option>
+			<option value="rainbow-wave">Rainbow Wave</option>
+			<option value="pulse">Pulse</option>
+		</select>
+		<label for="brightness">Brightness</label>
+		<select name="brightness" id="brightness">
+			<option value="off">Off</option>
+			<option value="low">Low</option>
+			<option value="medium">Medium</option>
+			<option value="high">High</option>
+		</select>
+		
+		<div>
+			<h2>colors</h2>
+			<input type="range" id="hue"> <br>
+			<input type="range" id="saturation"> <br>
+			<input type="range" id="lightness"> <br>
+			<output> #RRGGBB </output> <output id="colorpreview"></output>
+		</div>
+		</section>
+
+	</main>
+
     <script src="/js/neutralino.js"></script>
     <!-- Your app's source files -->
     <script src="/js/main.js"></script>
