@@ -26,11 +26,14 @@ function getSliderValue(id: string): number {
 backlightColor.forEach(col => {
 	col.addEventListener('input', (e: Event) => {
 		const hexOutput = document.getElementById('hexvalue') as HTMLOutputElement;
+		const preview = document.getElementById('colorpreview') as HTMLOutputElement;
 		const hue = getSliderValue("hue");
 		const sat = getSliderValue("saturation");
 		const lig = getSliderValue("lightness");
 		const hex = HSLToHex({ h: hue, s: sat, l: lig });
 		console.log(hex);
 		hexOutput.innerText = hex;
+		preview.style.background = hex;
+
 	});
 });

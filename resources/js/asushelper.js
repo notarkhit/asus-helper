@@ -21,11 +21,13 @@ function getSliderValue(id) {
 backlightColor.forEach(col => {
     col.addEventListener('input', (e) => {
         const hexOutput = document.getElementById('hexvalue');
+        const preview = document.getElementById('colorpreview');
         const hue = getSliderValue("hue");
         const sat = getSliderValue("saturation");
         const lig = getSliderValue("lightness");
         const hex = HSLToHex({ h: hue, s: sat, l: lig });
         console.log(hex);
         hexOutput.innerText = hex;
+        preview.style.background = hex;
     });
 });

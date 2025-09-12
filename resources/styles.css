@@ -1,4 +1,5 @@
 body {
+	font-size: 1.3rem;
 	background-color: #28292b;
 	color: #eee;
 }
@@ -66,6 +67,16 @@ section h3 {
 	padding-bottom: 6px;
 	color: hsl(210, 70%, 60%);
 	/* accent blue, like ArchWiki links */
+}
+
+#colorpreview {
+	display: block;
+	height: 2em;
+	min-width: 2em;
+	color: blue;
+	background: #f00;
+	border-radius: 12px;
+	margin-top: 2em;
 }
 
 /* /* Webkit browsers (Chrome, Safari, Edge) */
