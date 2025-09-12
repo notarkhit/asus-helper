@@ -1,6 +1,12 @@
 body {
-	background-color: #343638;
+	background-color: #28292b;
 	color: #eee;
+}
+
+h1,
+h2,
+h3 {
+	color: #07b;
 }
 
 #hue {
@@ -41,6 +47,26 @@ input#lightness[type=range] {
 			hsl(0, 100%, 100%));
 }
 
+section {
+	background: #1e1f22;
+	/* deep dark gray, same feel as ArchWiki dark */
+	border: 1px solid #2a2b2e;
+	/* subtle border */
+	border-radius: 12px;
+	/* rounded corners */
+	padding: 16px;
+	margin: 20px 0;
+	box-shadow: 0 4px 12px #00000066;
+	/* shadow with hex alpha */
+}
+
+section h3 {
+	margin-top: 0;
+	border-bottom: 1px solid #2a2b2e;
+	padding-bottom: 6px;
+	color: hsl(210, 70%, 60%);
+	/* accent blue, like ArchWiki links */
+}
 
 /* /* Webkit browsers (Chrome, Safari, Edge) */
 /* input[type=range]::-webkit-slider-thumb { */
