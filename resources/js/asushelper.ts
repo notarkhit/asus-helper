@@ -14,15 +14,23 @@ function HSLToHex(hsl: { h: number; s: number; l: number }): string {
 	return `#${f(0)}${f(8)}${f(4)}`;
 }
 
-const backlightColor = document.querySelectorAll<HTMLInputElement>('.color-slider');
+console.log('connected');
+
+var backlightColor = document.querySelectorAll<HTMLInputElement>('.hsl-slider');
+console.log(backlightColor);
+
+function getSliderValue(id: string): number {
+	return Number((document.getElementById(id) as HTMLInputElement).value);
+}
 
 backlightColor.forEach(col => {
 	col.addEventListener('input', (e: Event) => {
-		const hue = (document.getElementById('hue') as HTMLInputElement).value;
-		const sat = (document.getElementById('saturation') as HTMLInputElement).value;
-		const lig = (document.getElementById('lightness') as HTMLInputElement).value;
 		const hexOutput = document.getElementById('hexvalue') as HTMLOutputElement;
+		const hue = getSliderValue("hue");
+		const sat = getSliderValue("saturation");
+		const lig = getSliderValue("lightness");
 		const hex = HSLToHex({ h: hue, s: sat, l: lig });
+		console.log(hex);
 		hexOutput.innerText = hex;
 	});
 });
