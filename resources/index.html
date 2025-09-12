@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title> Asus Helper </title>
-    <link rel="stylesheet" href="/styles.css">
-  </head>
-  <body>
+
+<head>
+	<meta charset="UTF-8">
+	<title> Asus Helper </title>
+	<link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
 
 	<header id="titlebar">
 		<h2>ASUS HELPER</h2>
@@ -24,40 +26,41 @@
 			<label for="bat-cap">Battery Charge limit</label> <br>
 			<input type="range" name="bat-cap" id="bat-cap" min="20" max="100"><output id="bat-cap">50</output>
 		</section>
-	
-		<section id="aura">
-		<h3>Aura Controls</h3>
 
-		<label for="aura-mode">Aura mode</label>
-		<select name="aura-mode" id="aura-mode">
-			<option value="static">Static</option>
-			<option value="breathe">Breathe</option>
-			<option value="rainbow-cycle">Rainbow Cycle</option>
-			<option value="rainbow-wave">Rainbow Wave</option>
-			<option value="pulse">Pulse</option>
-		</select>
-		<label for="brightness">Brightness</label>
-		<select name="brightness" id="brightness">
-			<option value="off">Off</option>
-			<option value="low">Low</option>
-			<option value="medium">Medium</option>
-			<option value="high">High</option>
-		</select>
-		
-		<div>
-			<h3>Colors</h3>
-			<input type="range" id="hue" min="0" max="360" value="0"> <br>
-			<input type="range" id="saturation" min="0" max="100"> <br>
-			<input type="range" id="lightness" min="0" max="100"> <br>
-			<output> #RRGGBB </output> <output id="colorpreview"></output>
-		</div>
+		<section id="aura">
+			<h3>Aura Controls</h3>
+
+			<label for="aura-mode">Aura mode</label>
+			<select name="aura-mode" id="aura-mode">
+				<option value="static">Static</option>
+				<option value="breathe">Breathe</option>
+				<option value="rainbow-cycle">Rainbow Cycle</option>
+				<option value="rainbow-wave">Rainbow Wave</option>
+				<option value="pulse">Pulse</option>
+			</select>
+			<label for="brightness">Brightness</label>
+			<select name="brightness" id="brightness">
+				<option value="off">Off</option>
+				<option value="low">Low</option>
+				<option value="medium">Medium</option>
+				<option value="high">High</option>
+			</select>
+
+			<div>
+				<h3>Colors</h3>
+				<input type="range" class="hsl-slider" id="hue" min="0" max="360" value="0"> <br>
+				<input type="range" class="hsl-slider" id="saturation" min="0" max="100"> <br>
+				<input type="range" class="hsl-slider" id="lightness" min="0" max="100"> <br>
+				<output id="hexvalue"> #RRGGBB </output> <output id="colorpreview"></output>
+			</div>
 		</section>
 
 	</main>
 
-    <script src="/js/neutralino.js"></script>
-    <!-- Your app's source files -->
-    <script src="/js/main.js"></script>
-    <script src="/js/asushelper.js"></script>
-  </body>
+	<script src="/js/neutralino.js"></script>
+	<!-- Your app's source files -->
+	<script src="/js/main.js"></script>
+	<script src="/js/asushelper.ts"></script>
+</body>
+
 </html>
