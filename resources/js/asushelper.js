@@ -1,4 +1,5 @@
 "use strict";
+// import { os } from "@neutralinojs/lib";
 function HSLToHex(hsl) {
     // https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/
     const { h, s, l } = hsl;
@@ -10,13 +11,23 @@ function HSLToHex(hsl) {
         // Convert to Hex and prefix with "0" if required
         return ('0' + Math.round(255 * color).toString(16)).slice(-2);
     };
-    return `#${f(0)}${f(8)}${f(4)}`;
+    return `${f(0)}${f(8)}${f(4)}`;
 }
 console.log('connected');
 var backlightColor = document.querySelectorAll('.hsl-slider');
 console.log(backlightColor);
 function getSliderValue(id) {
     return Number(document.getElementById(id).value);
+}
+async function changecolor(col) {
+    try {
+        // const result = await os.execCommand(`asusctl aura static -c ${hex}`);
+        const result = await Neutralino.os.execCommand(`asusctl aura static -c ${col}`);
+        console.log(col, "set as color");
+    }
+    catch (err) {
+        console.error("Error executing commmand", err);
+    }
 }
 backlightColor.forEach(col => {
     col.addEventListener('input', (e) => {
@@ -26,8 +37,10 @@ backlightColor.forEach(col => {
         const sat = getSliderValue("saturation");
         const lig = getSliderValue("lightness");
         const hex = HSLToHex({ h: hue, s: sat, l: lig });
-        console.log(hex);
-        hexOutput.innerText = hex;
-        preview.style.background = hex;
+        const output = "#" + hex;
+        console.log(output);
+        hexOutput.innerText = output;
+        preview.style.background = output;
+        changecolor(hex);
     });
 });

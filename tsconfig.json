@@ -1,12 +1,26 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ES6",
+    "target": "ES2017",
+    "module": "esnext",
+	"moduleResolution":"node",
     "outDir": "./resources/js",
     "rootDir": "./resources/js",
-    "strict": true
+	"baseUrl":".",
+	"paths":{
+		"@neutralinojs/lib": ["node_modules/@neutralinojs/lib/dist/index.js"]
+	},
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+	"typeRoots": [
+		"./node_modules/@neutralinojs/lib/dist"
+	]
+	
   },
-  // "include": ["resources/js/**/*.ts"]
+  "include": [
+	  "resources/js/**/*.ts",
+	  "declarations.d.ts"
+  ],
   "files": [
 	  "resources/js/asushelper.ts"
   ]

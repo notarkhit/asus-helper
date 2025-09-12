@@ -1,0 +1,13 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "dependencies": {
+        "@neutralinojs/lib": "^6.2.0",
+      },
+    },
+  },
+  "packages": {
+    "@neutralinojs/lib": ["@neutralinojs/lib@6.2.0", "", {}, "sha512-BpnZjaSWKLJMSSLwfrhiBwgEwuSR5fZsroFH0Tfx6aTCx9AXbKkIQ5wj/JKWH7jyRet7K/+KYzbK8C+UKOgecw=="],
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@neutralinojs/lib": "^6.2.0"
+  }
+}
