@@ -16,10 +16,8 @@ function HSLToHex(hsl: { h: number; s: number; l: number }): string {
 	return `${f(0)}${f(8)}${f(4)}`;
 }
 
-console.log('connected');
 
 var backlightColor = document.querySelectorAll<HTMLInputElement>('.hsl-slider');
-console.log(backlightColor);
 
 function getSliderValue(id: string): number {
 	return Number((document.getElementById(id) as HTMLInputElement).value);
@@ -44,7 +42,6 @@ backlightColor.forEach(col => {
 		const lig = getSliderValue("lightness");
 		const hex = HSLToHex({ h: hue, s: sat, l: lig });
 		const output = "#" + hex;
-		console.log(output);
 		hexOutput.innerText = output;
 		preview.style.background = output;
 		changecolor(hex);
