@@ -2,6 +2,12 @@ body {
 	font-size: 1.3rem;
 	background-color: #28292b;
 	color: #eee;
+	margin: 2em;
+	background: #1e1f22;
+	border: 1px solid #2a2b2e;
+	border-radius: 12px;
+	padding: 16px;
+	box-shadow: 0 4px 12px #00000066;
 }
 
 h1,
@@ -10,8 +16,8 @@ h3 {
 	color: #07b;
 }
 
-#hue {
-	background: linear-gradient(to right, red, violet);
+#hexvalue {
+	border: #222;
 }
 
 input[type=range] {
@@ -50,23 +56,17 @@ input#lightness[type=range] {
 
 section {
 	background: #1e1f22;
-	/* deep dark gray, same feel as ArchWiki dark */
 	border: 1px solid #2a2b2e;
-	/* subtle border */
 	border-radius: 12px;
-	/* rounded corners */
 	padding: 16px;
 	margin: 20px 0;
 	box-shadow: 0 4px 12px #00000066;
-	/* shadow with hex alpha */
 }
 
 section h3 {
 	margin-top: 0;
 	border-bottom: 1px solid #2a2b2e;
 	padding-bottom: 6px;
-	color: hsl(210, 70%, 60%);
-	/* accent blue, like ArchWiki links */
 }
 
 #colorpreview {

@@ -1,5 +1,7 @@
 "use strict";
 // import { os } from "@neutralinojs/lib";
+// import { events } from "@neutralinojs/lib";
+console.log('connected');
 function HSLToHex(hsl) {
     // https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/
     const { h, s, l } = hsl;
@@ -41,3 +43,16 @@ backlightColor.forEach(col => {
         changecolor(hex);
     });
 });
+// aura-mode ,brightness
+const auraMode = document.getElementById('aura-mode');
+const brightness = document.getElementById('brightness');
+console.log(auraMode.value, '-oo-', brightness.value);
+auraMode.addEventListener('change', (e) => {
+    const mode = e.target;
+    console.log(mode.value);
+});
+brightness.addEventListener('change', (e) => {
+    const level = e.target;
+    console.log(level.value);
+});
+//
