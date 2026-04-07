@@ -10,7 +10,11 @@
 <body>
 
 	<header id="titlebar">
-		<h2>ASUS HELPER</h2>
+		<div id="brand-block">
+			<p class="eyebrow">Control center</p>
+			<h2>ASUS HELPER</h2>
+		</div>
+		<button id="theme-toggle" type="button" aria-label="Toggle theme">Dark</button>
 	</header>
 
 	<main>
@@ -19,12 +23,15 @@
 			<h3>System controls</h3>
 			<label for="perf">Performance Profile</label>
 			<select name="perf" id="perf">
-				<option value="quiet">Quiet</option>
-				<option value="balanced">balanced</option>
+				<option value="Quiet">Quiet</option>
+				<option value="Balanced">Balanced</option>
 				<option value="Performance">Performance</option>
 			</select>
-			<label for="bat-cap">Battery Charge limit</label> <br>
-			<input type="range" name="bat-cap" id="bat-cap" min="20" max="100"><output id="bat-cap">50</output>
+			<label for="bat-cap">Battery Charge limit</label>
+			<div class="range-row">
+				<input type="range" name="bat-cap" id="bat-cap" min="20" max="100" value="50">
+				<output id="bat-cap-value">50%</output>
+			</div>
 		</section>
 
 		<section id="aura">
@@ -42,20 +49,33 @@
 			<select name="brightness" id="brightness">
 				<option value="off">Off</option>
 				<option value="low">Low</option>
-				<option value="medium">Medium</option>
+				<option value="med">Medium</option>
 				<option value="high">High</option>
 			</select>
 
-			<div>
+			<div class="color-panel" id="color-controls">
 				<h3>Colors</h3>
-				<input type="range" class="hsl-slider" id="hue" min="0" max="360" value="0"> <br>
-				<input type="range" class="hsl-slider" id="saturation" min="0" max="100" value="100"> <br>
-				<input type="range" class="hsl-slider" id="lightness" min="0" max="100"> <br>
-				<output id="hexvalue">#ff0000</output> <output id="colorpreview"></output>
+				<div class="slider-field">
+					<label for="hue">Hue</label>
+					<input type="range" class="hsl-slider" id="hue" min="0" max="360" value="0">
+				</div>
+				<div class="slider-field">
+					<label for="saturation">Saturation</label>
+					<input type="range" class="hsl-slider" id="saturation" min="0" max="100" value="100">
+				</div>
+				<div class="slider-field">
+					<label for="lightness">Lightness</label>
+					<input type="range" class="hsl-slider" id="lightness" min="0" max="100" value="50">
+				</div>
+				<div class="color-output">
+					<output id="hexvalue">#ff0000</output>
+					<output id="colorpreview" aria-label="Color preview"></output>
+				</div>
 			</div>
 		</section>
 
 	</main>
+	<p id="command-status" aria-live="polite">Ready.</p>
 
 	<script src="/js/neutralino.js"></script>
 	<!-- Your app's source files -->
