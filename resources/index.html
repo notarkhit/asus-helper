@@ -14,65 +14,196 @@
 			<p class="eyebrow">Control center</p>
 			<h2>ASUS HELPER</h2>
 		</div>
-		<button id="theme-toggle" type="button" aria-label="Toggle theme">Dark</button>
+		<div class="header-actions">
+			<button id="refresh-all" type="button">Refresh</button>
+			<button id="theme-toggle" type="button" aria-label="Toggle theme">Dark</button>
+		</div>
 	</header>
 
 	<main>
-		<!-- System controls  -->
-		<section id="system-control">
-			<h3>System controls</h3>
-			<label for="perf">Performance Profile</label>
-			<select name="perf" id="perf">
-				<option value="Quiet">Quiet</option>
-				<option value="Balanced">Balanced</option>
-				<option value="Performance">Performance</option>
-			</select>
-			<label for="bat-cap">Battery Charge limit</label>
-			<div class="range-row">
-				<input type="range" name="bat-cap" id="bat-cap" min="20" max="100" value="50">
-				<output id="bat-cap-value">50%</output>
-			</div>
-		</section>
+		<nav class="tab-bar" aria-label="Sections">
+			<button class="tab-button" type="button" data-tab-target="system" data-tab-active="true">System</button>
+			<button class="tab-button" type="button" data-tab-target="power">Power</button>
+			<button class="tab-button" type="button" data-tab-target="aura">Aura</button>
+		</nav>
 
-		<section id="aura">
-			<h3>Aura Controls</h3>
+		<div class="tab-panel" data-tab-panel="system" data-tab-visible="true">
+			<section id="overview" class="wide-section">
+				<div class="section-head">
+					<div>
+						<p class="section-kicker">Live hardware</p>
+						<h3>Device Overview</h3>
+					</div>
+					<output id="last-sync">Not synced yet</output>
+				</div>
+				<div class="stats-grid">
+					<div class="stat-card">
+						<span class="stat-label">Family</span>
+						<strong id="device-family">Unknown</strong>
+					</div>
+					<div class="stat-card">
+						<span class="stat-label">Board</span>
+						<strong id="device-board">Unknown</strong>
+					</div>
+					<div class="stat-card">
+						<span class="stat-label">Version</span>
+						<strong id="asusctl-version">Unknown</strong>
+					</div>
+					<div class="stat-card">
+						<span class="stat-label">Features</span>
+						<strong id="feature-count">0 detected</strong>
+					</div>
+				</div>
+				<div class="capsule-group">
+					<div>
+						<p class="capsule-label">Platform</p>
+						<div id="supported-platform" class="capsule-list"></div>
+					</div>
+					<div>
+						<p class="capsule-label">Aura</p>
+						<div id="supported-aura" class="capsule-list"></div>
+					</div>
+				</div>
+			</section>
 
-			<label for="aura-mode">Aura mode</label>
-			<select name="aura-mode" id="aura-mode">
-				<option value="static">Static</option>
-				<option value="breathe">Breathe</option>
-				<option value="rainbow-cycle">Rainbow Cycle</option>
-				<option value="rainbow-wave">Rainbow Wave</option>
-				<option value="pulse">Pulse</option>
-			</select>
-			<label for="brightness">Brightness</label>
-			<select name="brightness" id="brightness">
-				<option value="off">Off</option>
-				<option value="low">Low</option>
-				<option value="med">Medium</option>
-				<option value="high">High</option>
-			</select>
+			<section id="armoury" class="wide-section">
+				<div class="section-head">
+					<div>
+						<p class="section-kicker">Firmware</p>
+						<h3>Armoury Attributes</h3>
+					</div>
+				</div>
+				<p id="armoury-empty" class="helper-copy">No Armoury attributes detected yet.</p>
+				<div id="armoury-controls" class="armoury-grid"></div>
+			</section>
+		</div>
 
-			<div class="color-panel" id="color-controls">
-				<h3>Colors</h3>
-				<div class="slider-field">
-					<label for="hue">Hue</label>
-					<input type="range" class="hsl-slider" id="hue" min="0" max="360" value="0">
+		<div class="tab-panel" data-tab-panel="power">
+			<section id="system-control">
+				<div class="section-head">
+					<div>
+						<p class="section-kicker">Power</p>
+						<h3>System Controls</h3>
+					</div>
 				</div>
-				<div class="slider-field">
-					<label for="saturation">Saturation</label>
-					<input type="range" class="hsl-slider" id="saturation" min="0" max="100" value="100">
+				<label for="perf">Performance Profile</label>
+				<select name="perf" id="perf">
+					<option value="Quiet">Quiet</option>
+					<option value="Balanced">Balanced</option>
+					<option value="Performance">Performance</option>
+				</select>
+				<div class="button-row">
+					<button id="profile-next" type="button">Next profile</button>
 				</div>
-				<div class="slider-field">
-					<label for="lightness">Lightness</label>
-					<input type="range" class="hsl-slider" id="lightness" min="0" max="100" value="50">
+				<label for="bat-cap">Battery Charge limit</label>
+				<div class="range-row">
+					<input type="range" name="bat-cap" id="bat-cap" min="20" max="100" value="50">
+					<output id="bat-cap-value">50%</output>
 				</div>
-				<div class="color-output">
-					<output id="hexvalue">#ff0000</output>
-					<output id="colorpreview" aria-label="Color preview"></output>
+				<div class="button-row">
+					<button id="battery-oneshot" type="button">Charge to 100% once</button>
 				</div>
-			</div>
-		</section>
+
+				<label for="profile-ac">Default profile on AC</label>
+				<select name="profile-ac" id="profile-ac">
+					<option value="Quiet">Quiet</option>
+					<option value="Balanced">Balanced</option>
+					<option value="Performance">Performance</option>
+				</select>
+				<label for="profile-battery">Default profile on battery</label>
+				<select name="profile-battery" id="profile-battery">
+					<option value="Quiet">Quiet</option>
+					<option value="Balanced">Balanced</option>
+					<option value="Performance">Performance</option>
+				</select>
+			</section>
+		</div>
+
+		<div class="tab-panel" data-tab-panel="aura">
+			<section id="aura">
+				<div class="section-head">
+					<div>
+						<p class="section-kicker">Lighting</p>
+						<h3>Aura Controls</h3>
+					</div>
+				</div>
+
+				<label for="aura-mode">Aura mode</label>
+				<select name="aura-mode" id="aura-mode">
+					<option value="static">Static</option>
+					<option value="breathe">Breathe</option>
+					<option value="stars">Stars</option>
+					<option value="rainbow-cycle">Rainbow Cycle</option>
+					<option value="rainbow-wave">Rainbow Wave</option>
+					<option value="rain">Rain</option>
+					<option value="highlight">Highlight</option>
+					<option value="laser">Laser</option>
+					<option value="ripple">Ripple</option>
+					<option value="pulse">Pulse</option>
+					<option value="comet">Comet</option>
+					<option value="flash">Flash</option>
+				</select>
+				<label for="brightness">Brightness</label>
+				<select name="brightness" id="brightness">
+					<option value="off">Off</option>
+					<option value="low">Low</option>
+					<option value="med">Medium</option>
+					<option value="high">High</option>
+				</select>
+				<div class="button-row">
+					<button id="brightness-prev" type="button">Dimmer</button>
+					<button id="brightness-next" type="button">Brighter</button>
+				</div>
+
+				<div class="dual-field">
+					<div>
+						<label for="aura-speed">Speed</label>
+						<select name="aura-speed" id="aura-speed">
+							<option value="low">Low</option>
+							<option value="med" selected>Medium</option>
+							<option value="high">High</option>
+						</select>
+					</div>
+					<div>
+						<label for="aura-direction">Direction</label>
+						<select name="aura-direction" id="aura-direction">
+							<option value="up">Up</option>
+							<option value="down">Down</option>
+							<option value="left">Left</option>
+							<option value="right" selected>Right</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="color-panel" id="color-controls">
+					<h3>Primary Color</h3>
+					<div class="slider-field">
+						<label for="hue">Hue</label>
+						<input type="range" class="hsl-slider" id="hue" min="0" max="360" value="0">
+					</div>
+					<div class="slider-field">
+						<label for="saturation">Saturation</label>
+						<input type="range" class="hsl-slider" id="saturation" min="0" max="100" value="100">
+					</div>
+					<div class="slider-field">
+						<label for="lightness">Lightness</label>
+						<input type="range" class="hsl-slider" id="lightness" min="0" max="100" value="50">
+					</div>
+					<div class="color-output">
+						<output id="hexvalue">#ff0000</output>
+						<output id="colorpreview" aria-label="Color preview"></output>
+					</div>
+				</div>
+
+				<div class="secondary-color-panel" id="secondary-color-controls">
+					<label for="secondary-color">Secondary Color</label>
+					<div class="secondary-color-row">
+						<input type="color" id="secondary-color" value="#000000">
+						<output id="secondary-hexvalue">#000000</output>
+					</div>
+				</div>
+			</section>
+		</div>
 
 	</main>
 	<p id="command-status" aria-live="polite">Ready.</p>
