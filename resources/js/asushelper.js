@@ -278,9 +278,32 @@ async function applyAuraEffect() {
 function normalizeBrightness(value) {
     return value.toLowerCase().replace("medium", "med");
 }
-function parseProfileValue(output) {
-    const match = output.match(/Active profile:\s+([A-Za-z]+)/);
-    return match ? match[1] : null;
+function parseProfileState(output) {
+    const findProfile = (patterns) => {
+        for (const pattern of patterns) {
+            const match = output.match(pattern);
+            if (match === null || match === void 0 ? void 0 : match[1]) {
+                return match[1].trim();
+            }
+        }
+        return null;
+    };
+    return {
+        active: findProfile([
+            /Active profile:\s*([A-Za-z]+)/i,
+            /Current profile:\s*([A-Za-z]+)/i
+        ]),
+        ac: findProfile([
+            /AC profile\s*:?\s*([A-Za-z]+)/i,
+            /(?:AC|Default profile on AC|AC profile):\s*([A-Za-z]+)/i,
+            /AC power profile:\s*([A-Za-z]+)/i
+        ]),
+        battery: findProfile([
+            /Battery profile\s*:?\s*([A-Za-z]+)/i,
+            /(?:Battery|Default profile on battery|Battery profile):\s*([A-Za-z]+)/i,
+            /Battery power profile:\s*([A-Za-z]+)/i
+        ])
+    };
 }
 function parseProfileList(output) {
     return output
@@ -486,7 +509,7 @@ async function refreshAllData(showStatus = true) {
         ]);
         const supportInfo = parseSupportInfo(infoOutput);
         const profiles = parseProfileList(profileListOutput);
-        const activeProfile = parseProfileValue(profileOutput);
+        const profileState = parseProfileState(profileOutput);
         const brightnessValue = parseBrightnessValue(brightnessOutput);
         const batteryLimit = parseBatteryLimit(batteryOutput);
         const armouryProperties = parseArmouryList(armouryOutput);
@@ -505,11 +528,17 @@ async function refreshAllData(showStatus = true) {
         }
         renderCapsules(supportedPlatform, supportInfo.platformProperties);
         renderCapsules(supportedAura, supportInfo.auraModes);
-        populateSelectOptions(perf, profiles, activeProfile);
-        populateSelectOptions(profileAc, profiles, activeProfile);
-        populateSelectOptions(profileBattery, profiles, "Quiet");
-        if (perf && activeProfile) {
-            perf.value = activeProfile;
+        populateSelectOptions(perf, profiles, profileState.active);
+        populateSelectOptions(profileAc, profiles, profileState.ac);
+        populateSelectOptions(profileBattery, profiles, profileState.battery ? profileState.battery : "Quiet");
+        if (perf && profileState.active) {
+            perf.value = profileState.active;
+        }
+        if (profileAc && profileState.ac) {
+            profileAc.value = profileState.ac;
+        }
+        if (profileBattery && profileState.battery) {
+            profileBattery.value = profileState.battery;
         }
         if (brightness && brightnessValue) {
             brightness.value = brightnessValue;

@@ -16,6 +16,12 @@ type SupportInfo = {
 	auraModes: string[];
 };
 
+type ProfileState = {
+	active: string | null;
+	ac: string | null;
+	battery: string | null;
+};
+
 const CHARGE_MODE_EXPLANATIONS: Record<string, string> = {
 	balanced: "Balanced caps charging around 80% to reduce battery wear while keeping solid unplugged runtime.",
 	"full capacity": "Full Capacity charges to 100% for maximum unplugged runtime.",
@@ -331,9 +337,33 @@ function normalizeBrightness(value: string): string {
 	return value.toLowerCase().replace("medium", "med");
 }
 
-function parseProfileValue(output: string): string | null {
-	const match = output.match(/Active profile:\s+([A-Za-z]+)/);
-	return match ? match[1] : null;
+function parseProfileState(output: string): ProfileState {
+	const findProfile = (patterns: RegExp[]): string | null => {
+		for (const pattern of patterns) {
+			const match = output.match(pattern);
+			if (match?.[1]) {
+				return match[1].trim();
+			}
+		}
+		return null;
+	};
+
+	return {
+		active: findProfile([
+			/Active profile:\s*([A-Za-z]+)/i,
+			/Current profile:\s*([A-Za-z]+)/i
+		]),
+		ac: findProfile([
+			/AC profile\s*:?\s*([A-Za-z]+)/i,
+			/(?:AC|Default profile on AC|AC profile):\s*([A-Za-z]+)/i,
+			/AC power profile:\s*([A-Za-z]+)/i
+		]),
+		battery: findProfile([
+			/Battery profile\s*:?\s*([A-Za-z]+)/i,
+			/(?:Battery|Default profile on battery|Battery profile):\s*([A-Za-z]+)/i,
+			/Battery power profile:\s*([A-Za-z]+)/i
+		])
+	};
 }
 
 function parseProfileList(output: string): string[] {
@@ -592,7 +622,7 @@ async function refreshAllData(showStatus = true) {
 
 		const supportInfo = parseSupportInfo(infoOutput);
 		const profiles = parseProfileList(profileListOutput);
-		const activeProfile = parseProfileValue(profileOutput);
+		const profileState = parseProfileState(profileOutput);
 		const brightnessValue = parseBrightnessValue(brightnessOutput);
 		const batteryLimit = parseBatteryLimit(batteryOutput);
 		const armouryProperties = parseArmouryList(armouryOutput);
@@ -613,12 +643,18 @@ async function refreshAllData(showStatus = true) {
 
 		renderCapsules(supportedPlatform, supportInfo.platformProperties);
 		renderCapsules(supportedAura, supportInfo.auraModes);
-		populateSelectOptions(perf, profiles, activeProfile);
-		populateSelectOptions(profileAc, profiles, activeProfile);
-		populateSelectOptions(profileBattery, profiles, "Quiet");
+		populateSelectOptions(perf, profiles, profileState.active);
+		populateSelectOptions(profileAc, profiles, profileState.ac);
+		populateSelectOptions(profileBattery, profiles, profileState.battery ?? "Quiet");
 
-		if (perf && activeProfile) {
-			perf.value = activeProfile;
+		if (perf && profileState.active) {
+			perf.value = profileState.active;
+		}
+		if (profileAc && profileState.ac) {
+			profileAc.value = profileState.ac;
+		}
+		if (profileBattery && profileState.battery) {
+			profileBattery.value = profileState.battery;
 		}
 		if (brightness && brightnessValue) {
 			brightness.value = brightnessValue;
