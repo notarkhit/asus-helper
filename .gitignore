@@ -20,3 +20,5 @@ neutralino.js
 /node_modules/**/*
 
 *.ignore
+
+build-deb.sh
